@@ -20,7 +20,12 @@ module.exports = {
 
   test: {
     client: 'pg',
-    connection:'postgres://localhost/foodiefan-testing',
+    connection: {
+      host : 'localhost',
+      database: process.env.TEST_DB_NAME,
+      user: process.env.TEST_DB_USER,
+      password: process.env.TEST_DB_PASSWORD
+    },
     migrations: {
       directory: './db/migrations'
     },

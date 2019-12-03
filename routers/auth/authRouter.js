@@ -85,8 +85,9 @@ function uploadImage(req, res, next) {
     const user = req.body;
 
     if (req.files) {
-        const {image} = req.files;
-        cloudinary.uploader.upload(image.tempFilePath, function (err, result) {
+        const {avatar} = req.files;
+        console.log(req.files);
+        cloudinary.uploader.upload(avatar.tempFilePath, function (err, result) {
             err ? res.status(500).json({error: err})
                 : user.avatar = result.url;
             console.log('STEP3 v1 ',user);
