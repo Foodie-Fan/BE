@@ -4,6 +4,7 @@ const server = express();
 const authRouter = require('../routers/auth/authRouter');
 const usersRouter = require('../routers/users/usersRouter');
 const authorization = require('../routers/middleware/authorization');
+const restaurantsRouter = require('../routers/restaurants/restaurantsRouter');
 
 require('dotenv').config();
 const helmet = require('helmet');
@@ -20,6 +21,8 @@ server.use(fileupload({
 
 server.use('/auth', authRouter);
 server.use('/users', authorization, usersRouter);
+server.use('/restaurants', authorization, restaurantsRouter);
+
 server.get('/', (req, res) => {
     res.status(200).json('Server is up :)');
 });

@@ -71,7 +71,7 @@ function hashPassword(req, res, next) {
     const user = req.body;
     bcrypt.hash(user.password, 10, (err, hash) => {
         if (err) res.status(500).json({error: err});
-        if (hash){
+        if (hash) {
             user.password = hash;
             req.user = user;
             console.log('STEP 2 ', user);
@@ -90,31 +90,42 @@ function uploadImage(req, res, next) {
         cloudinary.uploader.upload(avatar.tempFilePath, function (err, result) {
             err ? res.status(500).json({error: err})
                 : user.avatar = result.url;
-            console.log('STEP3 v1 ',user);
+            console.log('STEP3 v1 ', user);
             next();
         })
     } else {
         user.avatar = imagePath;
-        console.log('STEP3 v2 ',user);
+        console.log('STEP3 v2 ', user);
         next();
     }
 }
 
-router.post('/login', (req, res) => {
+router.post('/login', validateCredentials, (req, res) => {
+    const {username, password} = req.body;
+    db.findBy({username})
+        .first()
+        .then(user => {
+            if (user && bcrypt.compareSync(password, user.password)) {
+                const token = generateToken(user);
+                res.status(200).json(token);
+            }
+        })
+});
+
+function validateCredentials(req, res, next) {
     const {username, password} = req.body;
     if (username && password) {
         db.findBy({username})
             .first()
             .then(user => {
-                if (user && bcrypt.compareSync(password, user.password)) {
-                    const token = generateToken(user);
-                    res.status(200).json(token);
+                if (user) {
+                    next()
+                } else {
+                    res.status(401).json({errorMessage: "Invalid Credentials"})
                 }
             })
-    } else {
-        res.status(401).json({errorMessage: "Invalid Credentials"})
     }
-});
+}
 
 function generateToken(user) {
     const payload = {

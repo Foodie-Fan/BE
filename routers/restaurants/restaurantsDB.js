@@ -9,11 +9,11 @@ module.exports = {
 };
 
 function getAll() {
-    return db('reviews')
+    return db('restaurants')
 }
 
 function add(item) {
-    return db('reviews')
+    return db('restaurants')
         .insert(item, 'id')
         .then(([id]) => {
             return findBy({id})
@@ -21,22 +21,22 @@ function add(item) {
 }
 
 async function remove(filter) {
-    const reviews = await findBy(filter);
-    if (reviews.length) {
-        await db('reviews')
+    const restaurant = await findBy(filter);
+    if (restaurant.length) {
+        await db('restaurants')
             .where(filter)
             .del();
-        return reviews;
+        return restaurant;
     } else return null;
 }
 
 function update(filter, changes) {
-    return db('reviews')
+    return db('restaurants')
         .where(filter)
         .update({...changes}, ['id'])
 }
 
 function findBy(filter) {
-    return db('reviews')
+    return db('restaurants')
         .where(filter);
 }
