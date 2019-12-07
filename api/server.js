@@ -5,6 +5,7 @@ const authRouter = require('../routers/auth/authRouter');
 const usersRouter = require('../routers/users/usersRouter');
 const authorization = require('../routers/middleware/authorization');
 const restaurantsRouter = require('../routers/restaurants/restaurantsRouter');
+const reviewRouter = require('../routers/reviews/reviewsRouter');
 
 require('dotenv').config();
 const helmet = require('helmet');
@@ -22,6 +23,7 @@ server.use(fileupload({
 server.use('/auth', authRouter);
 server.use('/users', authorization, usersRouter);
 server.use('/restaurants', authorization, restaurantsRouter);
+server.use('/reviews', authorization, reviewRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json('Server is up :)');
