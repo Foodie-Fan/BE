@@ -4,7 +4,6 @@ const db = require('./authDB');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 require('dotenv').config({path: "../../.env"});
-const fs = require('fs');
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
