@@ -9,7 +9,8 @@ module.exports = {
 };
 
 function getAll() {
-    return db('reviews')
+    return db('reviews').join('restaurants', 'reviews.restaurant_id', 'restaurants.id')
+        .select('reviews.name', 'reviews.cuisine', 'reviews.rating', 'reviews.review', 'reviews.photo', 'restaurants.name as restaurant')
 }
 
 function add(item) {
