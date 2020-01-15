@@ -2,6 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('restaurants', (users) =>{
         users.increments();
+        //====!!!!!!1 restaurant name is unique !!!!!!======
         users.string('name', 128)
             .notNullable();
         // type of cuisine
@@ -12,8 +13,9 @@ exports.up = function(knex) {
         // overall rating
         users.integer('rating')
             .notNullable();
+        //====!!!!!! Shorter review like 300 characters !!!!!!======
         users.string('review', 500);
-        //photo of establishment/premises
+        //====!!!!!! Photo for restaurants is different !!!!!!======
         users.string('photo', 500)
             .notNullable()
             .defaultTo('https://res.cloudinary.com/krik13333/image/upload/v1570241223/il_fullxfull.1009061980_zajb_lwprk1.jpg');
