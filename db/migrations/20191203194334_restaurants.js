@@ -4,6 +4,7 @@ exports.up = function(knex) {
         users.increments();
         //====!!!!!!1 restaurant name is unique !!!!!!======
         users.string('name', 128)
+            .unique()
             .notNullable();
         // type of cuisine
         users.string('cuisine', 128);
