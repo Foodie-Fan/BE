@@ -14,6 +14,7 @@ const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1570241223
 
 router.post('/', uploadImage, (req, res) => {
     const review = req.body;
+    console.log('CREATE REVIEW ', review);
     db.add(review)
         .then(review_res => res.status(201).json(review_res))
         .catch(err => res.status(500).json({error: "Server could not add a review"}))

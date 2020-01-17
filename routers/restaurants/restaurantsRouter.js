@@ -12,12 +12,24 @@ cloudinary.config({
 const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1570241223/il_fullxfull.1009061980_zajb_lwprk1.jpg";
 
 
-router.post('/', uploadImage, (req, res) => {
+router.post('/', uploadImage, findRestaurant, (req, res) => {
     const restaurant = req.body;
     db.add(restaurant)
         .then(restaurant_res => res.status(201).json(restaurant_res))
         .catch(err => res.status(500).json({error: "Server could not add a restaurant"}))
 });
+
+function findRestaurant(req, res, next) {
+    db.findBy({name: req.body.name})
+        .then(res => {
+            if (res.length > 0) {
+                res.status(400).json({error: 'Restaurant name should be unique'})
+            } else {
+                next()
+            }
+        })
+        .catch(err => res.status(500).json({error: "Server could not retrieve a restaurant"}))
+}
 
 function uploadImage(req, res, next) {
     const restaurant = req.body;

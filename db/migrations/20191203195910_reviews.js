@@ -16,8 +16,9 @@ exports.up = function (knex) {
         // overall rating
         users.integer('rating')
             .notNullable();
+        //====!!!!!! Shorter review like 300 characters !!!!!!======
         users.string('review', 500);
-        //photo of establishment/premises
+        //====!!!!!! Another photo for reviews !!!!!!======
         users.string('photo', 500)
             .notNullable()
             .defaultTo('https://res.cloudinary.com/krik13333/image/upload/v1570241223/il_fullxfull.1009061980_zajb_lwprk1.jpg');
