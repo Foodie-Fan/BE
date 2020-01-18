@@ -62,7 +62,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     db.remove({id: req.params.id})
         .then(restaurant_res => res.status(200).json(restaurant_res))
-        .catch(err => res.status(500).json({error: "Server could not update a restaurant"}))
+        .catch(err => res.status(500).json({error: "Server could not delete a restaurant"}))
 });
 
 
