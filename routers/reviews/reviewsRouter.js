@@ -14,7 +14,7 @@ const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1570241223
 
 router.post('/', uploadImage, (req, res) => {
     const review = req.body;
-    console.log('CREATE REVIEW ', review);
+    review.user_id = req.user.id
     db.add(review)
         .then(review_res => res.status(201).json(review_res))
         .catch(err => res.status(500).json({error: "Server could not add a review"}))
@@ -37,7 +37,13 @@ function uploadImage(req, res, next) {
 }
 
 router.get('/', (req, res) => {
-    db.getAll()
+    db.getAll({"reviews.user_id": req.user.id})
+        .then(reviews => res.status(200).json(reviews))
+        .catch(err => res.status(500).json({error: "Server could not retrieve reviews"}))
+});
+
+router.get('/all/:user_id', (req, res) => {
+    db.getAll({"reviews.user_id": req.params.user_id})
         .then(reviews => res.status(200).json(reviews))
         .catch(err => res.status(500).json({error: "Server could not retrieve reviews"}))
 });
