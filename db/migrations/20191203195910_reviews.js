@@ -2,22 +2,36 @@
 exports.up = function (knex) {
     return knex.schema.createTable('reviews', (users) => {
         users.increments();
+
+        users.integer('user_id')
+            .unsigned()
+            .references("id")
+            .inTable('users')
+            .onDelete("CASCADE")
+            .onUpdate("CASCADE")
+
         users.string('name', 128)
             .notNullable();
+
         // type of cuisine
         users.string('cuisine', 128);
+
         users.integer('restaurant_id')
             .unsigned()
             .references("id")
             .inTable("restaurants")
             .onDelete("CASCADE")
             .onUpdate("CASCADE");
+
         users.string('price', 128);
         // overall rating
+
         users.integer('rating')
             .notNullable();
+
         //====!!!!!! Shorter review like 300 characters !!!!!!======
         users.string('review', 500);
+
         //====!!!!!! Another photo for reviews !!!!!!======
         users.string('photo', 500)
             .notNullable()

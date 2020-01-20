@@ -1,7 +1,15 @@
 //latest
-exports.up = function(knex) {
-    return knex.schema.createTable('restaurants', (users) =>{
+exports.up = function (knex) {
+    return knex.schema.createTable('restaurants', (users) => {
         users.increments();
+
+        users.integer('user_id')
+            .unsigned()
+            .references("id")
+            .inTable('users')
+            .onDelete("CASCADE")
+            .onUpdate("CASCADE")
+
         //====!!!!!!1 restaurant name is unique !!!!!!======
         users.string('name', 128)
             .unique()
@@ -24,6 +32,6 @@ exports.up = function(knex) {
 };
 
 //rollback
-exports.down = function(knex) {
+exports.down = function (knex) {
     return knex.schema.dropTableIfExists('restaurants');
 };

@@ -8,9 +8,15 @@ module.exports = {
     update
 };
 
-function getAll() {
+function getAll(filter) {
     return db('restaurants')
+        .where(filter)
 }
+
+// function getAlld() {
+//     return db('reviews').join('restaurants', 'reviews.restaurant_id', 'restaurants.id')
+//         .select('reviews.id', 'reviews.name', 'reviews.cuisine', 'reviews.rating', 'reviews.review', 'reviews.photo', 'restaurants.name as restaurant')
+// }
 
 function add(item) {
     return db('restaurants')
