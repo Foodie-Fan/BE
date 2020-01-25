@@ -12,7 +12,7 @@ function getAll(filter) {
     return db('reviews')
         .join('restaurants', 'reviews.restaurant_id', 'restaurants.id')
         .where(filter)
-        .select('reviews.id', 'reviews.name', 'reviews.cuisine', 'reviews.rating', 'reviews.review', 'reviews.photo', 'restaurants.name as restaurant', 'reviews.restaurant_id',)
+        .select('reviews.id', 'reviews.name', 'reviews.cuisine', 'reviews.rating', 'reviews.price', 'reviews.review', 'reviews.photo', 'restaurants.name as restaurant', 'reviews.restaurant_id',)
 }
 
 function add(item) {
