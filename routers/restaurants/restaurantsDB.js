@@ -39,7 +39,7 @@ async function remove(filter) {
 function update(filter, changes) {
     return db('restaurants')
         .where(filter)
-        .update({...changes}, ['id'])
+        .update({...changes}, '*')
 }
 
 function findBy(filter) {
