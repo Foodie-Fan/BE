@@ -57,8 +57,18 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     db.remove({id: req.params.id})
-        .then(review_res => res.status(200).json(review_res))
-        .catch(err => res.status(500).json({error: "Server could not update a review"}))
+        .then(review_res =>{
+            res.status(200).json(review_res);
+            const {photo} = review_res[0];
+            if(photo !== imagePath){
+                const id = photo.slice(photo.lastIndexOf('/') + 1, photo.length - 4);
+                cloudinary.uploader.destroy(id, function (error, result) {
+                    console.log("error ", error);
+                    console.log("result ", result);
+                })
+            }
+        })
+        .catch(err => res.status(500).json({error: "Server could not delete a review"}))
 });
 
 
