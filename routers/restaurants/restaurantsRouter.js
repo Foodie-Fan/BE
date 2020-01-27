@@ -21,15 +21,16 @@ router.post('/', uploadImage, findRestaurant, (req, res) => {
 });
 
 function findRestaurant(req, res, next) {
-    db.findBy({name: req.body.name})
+    db.findBy({user_id: req.user.id})
         .then(res => {
-            if (res.length > 0) {
-                res.status(400).json({error: 'Restaurant name should be unique'})
-            } else {
-                next()
-            }
+            res.forEach(item => {
+                if (item.name === req.body.name) {
+                    res.status(400).json({error: 'Restaurant name should be unique'})
+                }
+            });
+            next()
         })
-        .catch(err => res.status(500).json({error: "Server could not retrieve a restaurant"}))
+        .catch(err => res.status(400).json({error: 'Restaurant name should be unique'}))
 }
 
 function uploadImage(req, res, next) {
@@ -57,7 +58,6 @@ router.get('/', (req, res) => {
 function findRest(req, res, next) {
     db.findBy({id: req.params.id})
         .then(([res]) => {
-            console.log(' *********** ', res);
             req.restaurant = res;
             next();
         })
