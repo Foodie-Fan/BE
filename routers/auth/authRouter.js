@@ -11,36 +11,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET
 });
 
-const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1570241223/il_fullxfull.1009061980_zajb_lwprk1.jpg";
-
-// router.post('/register', (req, res) => {
-//     console.log('IMAGE ', req.body);
-//     const user = req.body;
-//     user.password = bcrypt.hashSync(user.password, 10);
-//     if (user) {
-//         if (req.files) {
-//             const {image} = req.files;
-//             cloudinary.uploader.upload(image.tempFilePath, function (error, result) {
-//                 if (result) {
-//                     user.avatar = result.url;
-//                     db.add(user)
-//                         .then(([user]) => {
-//                             console.log(user);
-//                             res.status(201).json(user)
-//                         })
-//                         .catch(err => res.status(500).json({error: "There was an error while saving the user to the database"}))
-//                 }
-//             })
-//         } else {
-//             user.avatar = "https://res.cloudinary.com/krik13333/image/upload/v1570241223/il_fullxfull.1009061980_zajb_lwprk1.jpg";
-//             db.add(user)
-//                 .then(([user]) => {
-//                     res.status(201).json(user)
-//                 })
-//                 .catch(err => res.status(500).json({error: "There was an error while saving the user to the database"}))
-//         }
-//     } else res.status(401).json({errorMessage: 'Invalid Credentials'});
-// });
+const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1583272561/il_fullxfull.1009061980_zajb_lwprk1_j4i7w8.png";
 
 router.post('/register', validateUser, hashPassword, uploadImage, (req, res) => {
     const user = req.body;
