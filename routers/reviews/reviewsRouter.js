@@ -9,7 +9,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET
 });
 
-const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1570241223/il_fullxfull.1009061980_zajb_lwprk1.jpg";
+const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1583272561/il_fullxfull.1009061980_zajb_lwprk1_j4i7w8.png";
 
 
 router.post('/', uploadImage, (req, res) => {
