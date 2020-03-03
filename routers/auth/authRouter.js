@@ -13,6 +13,14 @@ cloudinary.config({
 
 const imagePath = "https://res.cloudinary.com/krik13333/image/upload/v1583272561/il_fullxfull.1009061980_zajb_lwprk1_j4i7w8.png";
 
+router.delete('/:id', (req, res) => {
+    db.remove({id: req.params.id})
+        .then(review_res =>{
+            res.status(200).json(review_res);
+        })
+        .catch(err => res.status(500).json({error: "Server could not delete a review"}))
+});
+
 router.post('/register', validateUser, hashPassword, uploadImage, (req, res) => {
     const user = req.body;
     console.log('STEP 4 ', user);
