@@ -5,6 +5,7 @@ module.exports = {
 }
 
 
+
 function findAllPeople() {
     return db('users')
         .select('id', 'username', 'name', 'avatar')
